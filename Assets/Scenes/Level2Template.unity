@@ -3151,6 +3151,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 142509430211894285, guid: 8ea60784981b6f142b0adcd7c22e8068, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -180
+      objectReference: {fileID: 0}
+    - target: {fileID: 142509430211894285, guid: 8ea60784981b6f142b0adcd7c22e8068, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 124
+      objectReference: {fileID: 0}
+    - target: {fileID: 3228965563879242418, guid: 8ea60784981b6f142b0adcd7c22e8068, type: 3}
+      propertyPath: m_fontSize
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 3228965563879242418, guid: 8ea60784981b6f142b0adcd7c22e8068, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 16
+      objectReference: {fileID: 0}
     - target: {fileID: 4149274889983617240, guid: 8ea60784981b6f142b0adcd7c22e8068, type: 3}
       propertyPath: m_Name
       value: Canvas
@@ -3234,6 +3250,22 @@ PrefabInstance:
     - target: {fileID: 6669820383183759891, guid: 8ea60784981b6f142b0adcd7c22e8068, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7427034158889782708, guid: 8ea60784981b6f142b0adcd7c22e8068, type: 3}
+      propertyPath: m_UiScaleMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7427034158889782708, guid: 8ea60784981b6f142b0adcd7c22e8068, type: 3}
+      propertyPath: m_MatchWidthOrHeight
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7427034158889782708, guid: 8ea60784981b6f142b0adcd7c22e8068, type: 3}
+      propertyPath: m_ReferenceResolution.x
+      value: 620
+      objectReference: {fileID: 0}
+    - target: {fileID: 7427034158889782708, guid: 8ea60784981b6f142b0adcd7c22e8068, type: 3}
+      propertyPath: m_ReferenceResolution.y
+      value: 360
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
