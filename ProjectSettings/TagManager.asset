@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Coin
   - StageClear
+  - Enemy
   layers:
   - Default
   - TransparentFX
@@ -13,8 +14,8 @@ TagManager:
   - Terrain
   - Water
   - UI
-  - 
-  - 
+  - Enemy
+  - Player
   - 
   - 
   - 

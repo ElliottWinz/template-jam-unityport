@@ -8,14 +8,15 @@ public class PlayerScript : MonoBehaviour
 {
 
     [SerializeField] float MaxSpeed = 400f;
-    [SerializeField] float movementForce = 10f;
     [SerializeField] float movespeedCorrection = 5f;
     public int totalScore = 0;
     [SerializeField] float XInput, YInput;
     [SerializeField] Rigidbody2D rb; // player's rigidbody.
     private 
     bool coinDebounce = true;
-    bool dbStepAudioPlay = true; 
+    bool dbStepAudioPlay = true;
+
+    bool alive = true;
     private Vector2 moveDirection; // direction which the player is moving, X and Y value.
     private Animator anim; // the player object's animator compnent
     [SerializeField] AudioSource source; // where the game's audio is being played from
@@ -32,7 +33,7 @@ public class PlayerScript : MonoBehaviour
         if (PlayerPrefs.HasKey("SavedScore"))
         {
             ScoreText.text = "Score: " + PlayerPrefs.GetInt("SavedScore").ToString();
-
+            totalScore = PlayerPrefs.GetInt("SavedScore");
         }
 
         if (SceneManager.GetActiveScene().buildIndex == 0) // if the first level, set to 0.
@@ -51,7 +52,7 @@ public class PlayerScript : MonoBehaviour
         return moveVector.normalized;
     }
     
-    private void FixedUpdate()
+    private void FixedUpdate() 
     {
         moveCharacter();
     }
@@ -59,11 +60,17 @@ public class PlayerScript : MonoBehaviour
     void getOtherInputs()
     {
 
-        if (Input.GetKeyDown(KeyCode.F) && coinDebounce)
+        if (Input.GetKeyDown(KeyCode.Space) && coinDebounce)
         {
             coinDebounce = false;
 
             StartCoroutine(CoinCollectCoroutine());
+        }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            alive = false;
+            Application.Quit();
         }
     }
     IEnumerator playStepSound()
@@ -78,7 +85,7 @@ public class PlayerScript : MonoBehaviour
     {
 
 
-        Collider2D[] hitCoins = Physics2D.OverlapCircleAll(gameObject.transform.position, 1.5f);
+        Collider2D[] hitCoins = Physics2D.OverlapCircleAll(gameObject.transform.position, .5f);
         foreach (var hitCollider in hitCoins)
         {
 
@@ -98,7 +105,7 @@ public class PlayerScript : MonoBehaviour
         moveDirection = getInputMovementVector();
         if (moveDirection != Vector2.zero)
         {
-            Vector2 goalMovment = moveDirection * Time.fixedDeltaTime * movementForce;
+            Vector2 goalMovment = moveDirection * Time.fixedDeltaTime * MaxSpeed;
             rb.velocity = Vector2.Lerp(rb.velocity, goalMovment, Time.fixedDeltaTime * movespeedCorrection);
 
             if(dbStepAudioPlay == true)
@@ -115,18 +122,15 @@ public class PlayerScript : MonoBehaviour
                 rb.velocity = Vector2.zero;
             }
         }
+
+
     }
 
     public void awardPoints(int amountToAward)
     {
         totalScore += amountToAward;
+        ScoreText.text = "Score: " + totalScore;
 
-        if (PlayerPrefs.HasKey("SavedScore"))
-        {
-            PlayerPrefs.SetInt("SavedScore", totalScore);
-            ScoreText.text = "Score: " + PlayerPrefs.GetInt("SavedScore").ToString();
-
-        }
     }
     void Update()
     {
@@ -140,5 +144,23 @@ public class PlayerScript : MonoBehaviour
         }
         getOtherInputs();
 
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.tag == "Enemy" && alive == true)
+        {
+            alive = false;
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        } else if(collision.tag == "StageClear")
+        {
+            PlayerPrefs.SetInt("SavedScore", totalScore); //bank the points we have earned.
+            if(SceneManager.GetSceneByBuildIndex(SceneManager.GetActiveScene().buildIndex) != null)
+            {
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+
+            }
+
+        }
     }
 }

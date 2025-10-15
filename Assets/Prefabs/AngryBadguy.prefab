@@ -66,7 +66,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5731112665131579592, guid: 49134e2cd67531742b40fd46506b9037, type: 3}
       propertyPath: thrust
-      value: 15
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 5731112665131579592, guid: 49134e2cd67531742b40fd46506b9037, type: 3}
       propertyPath: movementSpeed

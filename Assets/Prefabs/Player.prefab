@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 7286100460077413024}
   - component: {fileID: 4984506581767353007}
   - component: {fileID: 3795376990703627012}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -146,9 +146,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1fe0b2de2cb8d6458c5d85db42d31ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxSpeed: 300
-  movementForce: 150
-  movespeedCorrection: 5
+  MaxSpeed: 200
+  movespeedCorrection: 10
   totalScore: 0
   XInput: 0
   YInput: 0
