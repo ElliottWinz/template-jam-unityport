@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 187570579}
   m_Layer: 0
   m_Name: anchor
-  m_TagString: Gun
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -153,6 +153,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1007591052}
+  - {fileID: 1168167942}
   m_Father: {fileID: 1856841192}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
 --- !u!114 &187570579
@@ -168,6 +169,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pos: {x: 0, y: 0}
+  bulletPrefab: {fileID: 6908572669891591909, guid: 236f6ec6662bfe54a9e4362af6d8ae76, type: 3}
 --- !u!1 &441962401
 GameObject:
   m_ObjectHideFlags: 0
@@ -1520,6 +1522,37 @@ Transform:
   - {fileID: 634316349}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1168167941
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1168167942}
+  m_Layer: 0
+  m_Name: ghost gun
+  m_TagString: Gun
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1168167942
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1168167941}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: -0.7071068, w: 0.7071068}
+  m_LocalPosition: {x: 0.75, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 187570578}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
 --- !u!4 &1238809809 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2055168699045573584, guid: 49134e2cd67531742b40fd46506b9037, type: 3}
