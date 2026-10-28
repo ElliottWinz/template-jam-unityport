@@ -24,6 +24,13 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] List<AudioClip> clipList;
 
     [SerializeField] TextMeshProUGUI ScoreText;
+
+    public int health = 3;
+    public float decay = 0;
+
+    [SerializeField] private GameObject healthBar;
+    [SerializeField] private GameObject decayBar;
+
     void Start()
     {
         Debug.Log("Started!");
@@ -54,7 +61,20 @@ public class PlayerScript : MonoBehaviour
     
     private void FixedUpdate() 
     {
-        moveCharacter();
+        if (alive)
+        {
+            moveCharacter();
+            healthBar.GetComponent<UnityEngine.UI.Slider>().value = (float)health / 3;
+            decay += Time.fixedDeltaTime * .1f;
+            decayBar.GetComponent<UnityEngine.UI.Slider>().value = decay / 3;
+
+            if (health - decay <= 0)
+            {
+                alive = false;
+            }
+        }
+        
+        
     }
 
     void getOtherInputs()
@@ -146,21 +166,5 @@ public class PlayerScript : MonoBehaviour
 
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if(collision.tag == "Enemy" && alive == true)
-        {
-            alive = false;
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        } else if(collision.tag == "StageClear")
-        {
-            PlayerPrefs.SetInt("SavedScore", totalScore); //bank the points we have earned.
-            if(SceneManager.GetSceneByBuildIndex(SceneManager.GetActiveScene().buildIndex) != null)
-            {
-                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-
-            }
-
-        }
-    }
+    
 }

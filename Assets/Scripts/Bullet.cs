@@ -8,6 +8,7 @@ public class Bullet : MonoBehaviour
     public float speed;
     private GameObject gunObject;
     private float spawnTime;
+    public int damage = 1;
 
     // Start is called before the first frame update
     void Start()
