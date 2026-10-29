@@ -7,7 +7,7 @@ public class InteractableScript : MonoBehaviour
 {
     // Start is called before the first frame update
 
-    [SerializeField] int scoreValue = 1;
+    [SerializeField] int decayValue = 1;
     private bool collected = false;
     [SerializeField] int itemType;
     void Start()
@@ -25,7 +25,7 @@ public class InteractableScript : MonoBehaviour
         }
         if (itemType == 0)
         {
-            plr.awardPoints(scoreValue);
+            plr.ReverseDecay(decayValue);
             collected = false;
             Destroy(this.gameObject);
         }

@@ -105,6 +105,8 @@ MonoBehaviour:
   rb: {fileID: 8116977587408218214}
   movementSpeed: 3
   player: {fileID: 0}
+  healthBar: {fileID: 0}
+  downPrefab: {fileID: 423231058465517467, guid: 142dea393e93a0c40b03f0bffc480e86, type: 3}
   AIType: 0
   damage: 1
   health: 3

@@ -1,12 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+
 
 public class WaveSpawner : MonoBehaviour
 {
     [SerializeField] private GameObject enemyPrefab;
+    [SerializeField] TextMeshProUGUI ScoreText;
+
     public int waveNumber = 0;
-    private int[] enemiesPerWave = { 1, 2, 3, 4, 5};
+    private int[] enemiesPerWave = { 4, 10, 15, 20, 25};
     public float dropRate = .1f;
     private List<GameObject> enemies = new List<GameObject>();
 
@@ -14,6 +18,8 @@ public class WaveSpawner : MonoBehaviour
     void Start()
     {
         
+
+
     }
 
     // Update is called once per frame
@@ -29,6 +35,7 @@ public class WaveSpawner : MonoBehaviour
         if (enemies.Count == 0)
         {
             waveNumber++;
+            ScoreText.text = "Wave: " + waveNumber;
             SpawnWave();
         }
     }

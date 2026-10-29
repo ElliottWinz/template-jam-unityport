@@ -23,7 +23,7 @@ public class PlayerScript : MonoBehaviour
 
     [SerializeField] List<AudioClip> clipList;
 
-    [SerializeField] TextMeshProUGUI ScoreText;
+    
 
     public int health = 3;
     public float decay = 0;
@@ -37,11 +37,6 @@ public class PlayerScript : MonoBehaviour
         coinDebounce = true;
         anim = gameObject.GetComponent<Animator>();
 
-        if (PlayerPrefs.HasKey("SavedScore"))
-        {
-            ScoreText.text = "Score: " + PlayerPrefs.GetInt("SavedScore").ToString();
-            totalScore = PlayerPrefs.GetInt("SavedScore");
-        }
 
         if (SceneManager.GetActiveScene().buildIndex == 0) // if the first level, set to 0.
         {
@@ -109,7 +104,7 @@ public class PlayerScript : MonoBehaviour
         foreach (var hitCollider in hitCoins)
         {
 
-            if (hitCollider.isTrigger && hitCollider.gameObject.tag == "Coin"){
+            if (hitCollider.isTrigger && hitCollider.gameObject.tag == "Down"){
 
 
                 hitCollider.gameObject.GetComponent<InteractableScript>().CollectItem(this);
@@ -146,10 +141,10 @@ public class PlayerScript : MonoBehaviour
 
     }
 
-    public void awardPoints(int amountToAward)
+    public void ReverseDecay(int amountToAward)
     {
-        totalScore += amountToAward;
-        ScoreText.text = "Score: " + totalScore;
+        decay -= amountToAward;
+        
 
     }
     void Update()
