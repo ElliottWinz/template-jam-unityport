@@ -11,7 +11,7 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] float movespeedCorrection = 5f;
     public int totalScore = 0;
     [SerializeField] float XInput, YInput;
-    [SerializeField] Rigidbody2D rb; // player's rigidbody.
+    [SerializeField] Rigidbody2D playerRidgidBody;
     private 
     bool coinDebounce = true;
     bool dbStepAudioPlay = true;
@@ -26,7 +26,8 @@ public class PlayerScript : MonoBehaviour
     
 
     public int health = 3;
-    public float decay = 0;
+    public float decayValue = 0;
+    public float decayRate = 0;
 
     [SerializeField] private GameObject healthBar;
     [SerializeField] private GameObject decayBar;
@@ -60,10 +61,10 @@ public class PlayerScript : MonoBehaviour
         {
             moveCharacter();
             healthBar.GetComponent<UnityEngine.UI.Slider>().value = (float)health / 3;
-            decay += Time.fixedDeltaTime * .1f;
-            decayBar.GetComponent<UnityEngine.UI.Slider>().value = decay / 3;
+            decayValue += Time.fixedDeltaTime * decayRate;
+            decayBar.GetComponent<UnityEngine.UI.Slider>().value = decayValue / 3;
 
-            if (health - decay <= 0)
+            if (health - decayValue <= 0)
             {
                 alive = false;
             }
@@ -121,7 +122,7 @@ public class PlayerScript : MonoBehaviour
         if (moveDirection != Vector2.zero)
         {
             Vector2 goalMovment = moveDirection * Time.fixedDeltaTime * MaxSpeed;
-            rb.velocity = Vector2.Lerp(rb.velocity, goalMovment, Time.fixedDeltaTime * movespeedCorrection);
+            playerRidgidBody.velocity = Vector2.Lerp(playerRidgidBody.velocity, goalMovment, Time.fixedDeltaTime * movespeedCorrection);
 
             if(dbStepAudioPlay == true)
             {
@@ -131,10 +132,10 @@ public class PlayerScript : MonoBehaviour
         }
         else
         {
-            rb.velocity *= .95f;
-            if(rb.velocity.magnitude < .05f)
+            playerRidgidBody.velocity *= .95f;
+            if(playerRidgidBody.velocity.magnitude < .05f)
             {
-                rb.velocity = Vector2.zero;
+                playerRidgidBody.velocity = Vector2.zero;
             }
         }
 
@@ -143,7 +144,7 @@ public class PlayerScript : MonoBehaviour
 
     public void ReverseDecay(int amountToAward)
     {
-        decay -= amountToAward;
+        decayValue -= amountToAward;
         
 
     }

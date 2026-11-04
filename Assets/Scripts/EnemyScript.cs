@@ -7,7 +7,7 @@ public class EnemyScript : MonoBehaviour
 {
     // Start is called before the first frame update
 
-    [SerializeField] Rigidbody2D rb;
+    [SerializeField] Rigidbody2D enemyRigidBody;
     [SerializeField] float movementSpeed;
     [SerializeField] GameObject player;
     [SerializeField] Slider healthBar;

@@ -7,7 +7,7 @@ public class InteractableScript : MonoBehaviour
 {
     // Start is called before the first frame update
 
-    [SerializeField] int decayValue = 1;
+    [SerializeField] int decayReversalAmount = 1;
     private bool collected = false;
     [SerializeField] int itemType;
     void Start()
@@ -15,7 +15,7 @@ public class InteractableScript : MonoBehaviour
         
     }
 
-    public void CollectItem(PlayerScript plr)
+    public void CollectItem(PlayerScript player)
     {
 
         if (collected)
@@ -25,7 +25,7 @@ public class InteractableScript : MonoBehaviour
         }
         if (itemType == 0)
         {
-            plr.ReverseDecay(decayValue);
+            player.ReverseDecay(decayReversalAmount);
             collected = false;
             Destroy(this.gameObject);
         }
