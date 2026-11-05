@@ -7,11 +7,11 @@ public class InteractableScript : MonoBehaviour
 {
     // Start is called before the first frame update
 
-    [SerializeField] int decayReversalAmount = 1;
+    [SerializeField] float decayReversalAmount = 0.25f;
     private bool collected = false;
     [SerializeField] int itemType;
     void Start()
-    {
+    {   
         
     }
 

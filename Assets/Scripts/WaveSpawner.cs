@@ -13,19 +13,23 @@ public class WaveSpawner : MonoBehaviour
     private int[] enemiesPerWave = { 4, 10, 15, 20, 25};
     public float dropRate = .1f;
     private List<GameObject> enemies = new List<GameObject>();
-
+    public static bool isPaused = false;
     // Start is called before the first frame update
     void Start()
     {
         
-
+        
 
     }
 
     // Update is called once per frame
     void Update()
     {
-        for(int i = enemies.Count - 1; i >= 0; i--)
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            isPaused = !isPaused;
+        }
+        for (int i = enemies.Count - 1; i >= 0; i--)
         {
             if(enemies[i] == null)
             {
@@ -39,10 +43,10 @@ public class WaveSpawner : MonoBehaviour
             SpawnWave();
         }
     }
-
+        
     void SpawnWave()
     {
-        for (int i = 0; i < enemiesPerWave[waveNumber-1]; i++)
+        for (int i = 0; i < waveNumber*5; i++)
         {
             SpawnEnemy();
         }

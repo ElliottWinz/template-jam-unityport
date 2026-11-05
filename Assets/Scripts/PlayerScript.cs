@@ -23,21 +23,30 @@ public class PlayerScript : MonoBehaviour
 
     [SerializeField] List<AudioClip> clipList;
 
-    
 
-    public int health = 3;
-    public float decayValue = 0;
+    public int maxHealth = 3;
+    public int currentHealth = 0;   
+    public float currentDecay = 0;
     public float decayRate = 0;
+
 
     [SerializeField] private GameObject healthBar;
     [SerializeField] private GameObject decayBar;
 
+
+    private void OnValidate()
+    {
+        currentHealth = maxHealth;
+    }
+
     void Start()
     {
         Debug.Log("Started!");
-        coinDebounce = true;
+        coinDebounce = true;    
         anim = gameObject.GetComponent<Animator>();
-
+        currentHealth = maxHealth;
+        healthBar.GetComponent<UnityEngine.UI.Slider>().maxValue = (float)maxHealth;
+        decayBar.GetComponent<UnityEngine.UI.Slider>().maxValue = (float)maxHealth;
 
         if (SceneManager.GetActiveScene().buildIndex == 0) // if the first level, set to 0.
         {
@@ -60,11 +69,14 @@ public class PlayerScript : MonoBehaviour
         if (alive)
         {
             moveCharacter();
-            healthBar.GetComponent<UnityEngine.UI.Slider>().value = (float)health / 3;
-            decayValue += Time.fixedDeltaTime * decayRate;
-            decayBar.GetComponent<UnityEngine.UI.Slider>().value = decayValue / 3;
+            healthBar.GetComponent<UnityEngine.UI.Slider>().value = (float)currentHealth;
+            if (!WaveSpawner.isPaused)
+            {
+            currentDecay += Time.fixedDeltaTime * decayRate * maxHealth;
+            }
+            decayBar.GetComponent<UnityEngine.UI.Slider>().value = currentDecay;
 
-            if (health - decayValue <= 0)
+            if (currentHealth - currentDecay <= 0)
             {
                 alive = false;
             }
@@ -142,11 +154,17 @@ public class PlayerScript : MonoBehaviour
 
     }
 
-    public void ReverseDecay(int amountToAward)
+    public void ReverseDecay(float amountToAward)
     {
-        decayValue -= amountToAward;
-        
+        if(currentDecay - (amountToAward * maxHealth) >= 0)
+        {
+            currentDecay -= amountToAward * maxHealth;
 
+        }
+        else
+        {
+            currentDecay = 0;
+        }
     }
     void Update()
     {

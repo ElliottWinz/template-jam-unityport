@@ -1,6 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting.Antlr3.Runtime;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class EnemyScript : MonoBehaviour
@@ -11,18 +14,18 @@ public class EnemyScript : MonoBehaviour
     [SerializeField] float movementSpeed;
     [SerializeField] GameObject player;
     [SerializeField] Slider healthBar;
-    [SerializeField] GameObject downPrefab;
+    [SerializeField] GameObject bodyPrefab;
     private Vector3 pos;
-
+    
 
 
     [SerializeField] int AIType;
     private Vector2 moveDirection;
-    private bool DB;
+    private bool canMove;
     private float cooldown = 0;
     public int damage = 1;
     public int health = 3;
-    
+    public int bodySpawnChance = 10;
 
 
     // Update is called once per frame
@@ -30,7 +33,7 @@ public class EnemyScript : MonoBehaviour
     private void Start()
     {
         player = GameObject.FindWithTag("Player");
-        DB = true;
+        canMove = true;
         if (healthBar == null)
         {
             healthBar = GetComponentInChildren<Slider>(true);
@@ -38,24 +41,29 @@ public class EnemyScript : MonoBehaviour
         pos = healthBar.transform.position;
 
         healthBar.transform.position = new Vector3(pos.x, pos.y - 100000, pos.z);
+        
 
     }
     void Update()
     {
-        healthBar.GetComponent<UnityEngine.UI.Slider>().value = (float)health / 3;
+
+    
+       
+    
+            healthBar.GetComponent<UnityEngine.UI.Slider>().value = (float)health / 3;
         if (health <= 0)
         {
-            if(Random.Range(1, 10) == 1)
+            if (UnityEngine.Random.Range(1, bodySpawnChance) == 1)
             {
-                Instantiate(downPrefab, transform.position, transform.rotation);
+                Instantiate(bodyPrefab, transform.position, bodyPrefab.transform.rotation);
             }
             Destroy(gameObject);
         }
         if (cooldown < Time.time)
         {
-            DB = true;
+            canMove = true;
         }
-        if (DB)
+        if (canMove && !WaveSpawner.isPaused)
         {
             moveDirection = new Vector2(player.transform.position.x - transform.position.x, player.transform.position.y - transform.position.y).normalized;
             transform.position += new Vector3(moveDirection.x, moveDirection.y, 0) * movementSpeed * Time.deltaTime;
@@ -78,10 +86,10 @@ public class EnemyScript : MonoBehaviour
         {
             if (cooldown <= Time.time)
             {
-                collision.GetComponent<PlayerScript>().health -= damage;
+                collision.GetComponent<PlayerScript>().currentHealth -= damage;
             }
             cooldown = Time.time + 1f;
-            DB = false;
+            canMove = false;
         
 
         }
