@@ -134,7 +134,11 @@ public class PlayerScript : MonoBehaviour
     }
     void moveCharacter()
     {
+<<<<<<< Updated upstream
         RotationManager.RotateObject(this,-90);
+=======
+        RotationManager.RotateObject(this,- 90);
+>>>>>>> Stashed changes
         moveDirection = getInputMovementVector();
         if (moveDirection != Vector2.zero)
         {
