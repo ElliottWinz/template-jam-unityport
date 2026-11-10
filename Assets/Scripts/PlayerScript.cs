@@ -1,8 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using static UnityEditor.PlayerSettings;
 
 public class PlayerScript : MonoBehaviour
 {
@@ -15,7 +18,7 @@ public class PlayerScript : MonoBehaviour
     private 
     bool coinDebounce = true;
     bool dbStepAudioPlay = true;
-
+    public Vector2 pos;
     bool alive = true;
     private Vector2 moveDirection; // direction which the player is moving, X and Y value.
     private Animator anim; // the player object's animator compnent
@@ -28,7 +31,7 @@ public class PlayerScript : MonoBehaviour
     public int currentHealth = 0;   
     public float currentDecay = 0;
     public float decayRate = 0;
-
+    
 
     [SerializeField] private GameObject healthBar;
     [SerializeField] private GameObject decayBar;
@@ -63,16 +66,17 @@ public class PlayerScript : MonoBehaviour
        
         return moveVector.normalized;
     }
-    
-    private void FixedUpdate() 
+
+    private void FixedUpdate()
     {
         if (alive)
         {
+
             moveCharacter();
             healthBar.GetComponent<UnityEngine.UI.Slider>().value = (float)currentHealth;
             if (!WaveSpawner.isPaused)
             {
-            currentDecay += Time.fixedDeltaTime * decayRate * maxHealth;
+                currentDecay += Time.fixedDeltaTime * decayRate * maxHealth;
             }
             decayBar.GetComponent<UnityEngine.UI.Slider>().value = currentDecay;
 
@@ -81,10 +85,10 @@ public class PlayerScript : MonoBehaviour
                 alive = false;
             }
         }
-        
-        
-    }
 
+
+    }
+    
     void getOtherInputs()
     {
 
@@ -130,6 +134,7 @@ public class PlayerScript : MonoBehaviour
     }
     void moveCharacter()
     {
+        RotationManager.RotateObject(this,-90);
         moveDirection = getInputMovementVector();
         if (moveDirection != Vector2.zero)
         {
@@ -153,7 +158,8 @@ public class PlayerScript : MonoBehaviour
 
 
     }
-
+   
+    
     public void ReverseDecay(float amountToAward)
     {
         if(currentDecay - (amountToAward * maxHealth) >= 0)

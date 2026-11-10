@@ -33,7 +33,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -78,7 +78,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -260552989, guid: 2837437af0ac66f4ca9295ac9ceccc34, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 9ca3c14390b8e084f846c3e9300a7c56, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -151,14 +151,20 @@ MonoBehaviour:
   totalScore: 0
   XInput: 0
   YInput: 0
-  rb: {fileID: 7286100460077413024}
+  playerRidgidBody: {fileID: 0}
+  pos: {x: 0, y: 0}
   source: {fileID: 3795376990703627012}
   clipList:
   - {fileID: 8300000, guid: bf86797c4d1a2e44ea955e5e5ce61459, type: 3}
   - {fileID: 8300000, guid: 6296e7a2365845441aa9af3069e98cc3, type: 3}
   - {fileID: 8300000, guid: 05b526f6426465e4e962997c782dc911, type: 3}
   - {fileID: 8300000, guid: 4818deaee925e34488373e41b85c9c12, type: 3}
-  ScoreText: {fileID: 0}
+  maxHealth: 3
+  currentHealth: 3
+  currentDecay: 0
+  decayRate: 0
+  healthBar: {fileID: 0}
+  decayBar: {fileID: 0}
 --- !u!50 &7286100460077413024
 Rigidbody2D:
   serializedVersion: 4
@@ -196,7 +202,7 @@ Animator:
   m_GameObject: {fileID: 3731074186336285345}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 806527c51aae8c540b84c9e2d2a3f5f2, type: 2}
+  m_Controller: {fileID: 0}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
